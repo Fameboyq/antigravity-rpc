@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https: data:; img-src 'self' data: https: file:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';" />
+<title>Antigravity RPC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* Antigravity brutalist overrides */
+  .tag-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid #1a1611;
+    box-shadow: 2px 2px 0 #1a1611;
+    margin-bottom: 12px;
+  }
+  .tag-presence { background: #f2d76e; color: #1a1611; }
+  .tag-discord  { background: #5865f2; color: #ffffff; }
+  .tag-assets   { background: #f08a4a; color: #1a1611; }
+  .tag-timing   { background: #f2d76e; color: #1a1611; }
+  .tag-daemon   { background: #4a9462; color: #ffffff; }
+  .tag-privacy  { background: #e1d6c0; color: #1a1611; }
+  .tag-stats    { background: #c2491e; color: #ffffff; }
+  .live-preview-pill {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #f2d76e;
+    color: #1a1611;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 3px 6px;
+    border: 1.5px solid #1a1611;
+    transform: rotate(2deg);
+    box-shadow: 2px 2px 0 #1a1611;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Top bar ──────────────────────────────────── -->
+<header>
+  <div class="header-left">
+    <h1><span style="color:#c2491e">◆</span> antigravity-rpc</h1>
+    <span class="vstamp" id="appVersion">v1.0.0</span>
+    <span class="header-sub" id="configPath">C:\Users\kanad\.gemini\antigravity\rpc_config.json</span>
+  </div>
+  <div class="header-right">
+    <span id="daemonBadge" class="daemon-badge">running</span>
+  </div>
+</header>
+
+<!-- ── Live preview rail ───────────────────────── -->
+<section class="live-rail" style="position:relative;">
+  <span class="live-preview-pill">LIVE PREVIEW</span>
+  <div class="avatar" id="liveAvatar"></div>
+  <div class="content">
+    <div class="appname" id="previewAppName">ANTIGRAVITY</div>
+    <div class="details-render" id="liveDetails">Working in vs code programing</div>
+    <div class="state-render" id="liveState">Edit · extension.js · 2.7B tokens</div>
+  </div>
+  <div class="right">
+    <div class="frame-num" id="liveFrameNum">1/4</div>
+    <div class="status-pill"><span class="dot" id="liveDot" style="background:#43b581;"></span><span id="liveStatus">Active</span></div>
+  </div>
+</section>
+
+<!-- ── Tabs ───────────────────────────────────── -->
+<nav class="tabs">
+  <button class="tab active" data-tab="presence">presence</button>
+  <button class="tab" data-tab="discord">discord</button>
+  <button class="tab" data-tab="assets">assets</button>
+  <button class="tab" data-tab="timing">timing</button>
+  <button class="tab" data-tab="daemon">daemon</button>
+  <button class="tab" data-tab="privacy">privacy</button>
+  <button class="tab" data-tab="stats">stats</button>
+</nav>
+
+<!-- ── Tab panels ─────────────────────────────── -->
+<main>
+
+  <section class="panel" data-panel="presence">
+    <div class="tag-badge tag-presence">PRESENCE</div>
+    <div id="frames"></div>
+    <div class="frame-actions">
+      <button class="add" id="addFrameBtn">+ add a frame</button>
+      <div class="presets">
+        <span class="presets-label">PRESETS:</span>
+        <button class="preset" data-preset="tokens">tokens</button>
+        <button class="preset" data-preset="streak">streak</button>
+        <button class="preset" data-preset="cost">cost</button>
+        <button class="preset" data-preset="lines">lines</button>
+        <button class="preset" data-preset="hotspot">hotspot</button>
+      </div>
+    </div>
+    <datalist id="varlist"></datalist>
+  </section>
+
+  <section class="panel" data-panel="discord" hidden>
+    <div class="tag-badge tag-discord">DISCORD</div>
+    <div class="form-grid">
+      <label class="form-row">
+        <span class="form-label">DISCORD CLIENT ID
+          <a href="https://discord.com/developers/applications" target="_blank" class="hint">↗ Developer Portal</a>
+        </span>
+        <input type="text" id="clientId" value="1564990931835297822" />
+      </label>
+      <label class="form-row">
+        <span class="form-label">APP NAME <span class="hint">shown as "Playing &lt;name&gt;"</span></span>
+        <input type="text" id="appName" value="Antigravity" />
+      </label>
+      <label class="form-row">
+        <span class="form-label">ACTIVITY TYPE</span>
+        <select id="activityType">
+          <option value="0" selected>Playing</option>
+          <option value="2">Listening</option>
+          <option value="3">Watching</option>
+          <option value="5">Competing</option>
+        </select>
+      </label>
+      <div class="form-row">
+        <span class="form-label">BUTTONS <span class="hint">up to 2 — Discord limit</span></span>
+        <div id="buttons"></div>
+        <button class="add-row" id="addButtonBtn">+ add button</button>
+      </div>
+      <label class="form-row inline">
+        <span class="form-label">SHOW ELAPSED TIMER</span>
+        <input type="checkbox" id="showElapsed" checked />
+      </label>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="assets" hidden>
+    <div class="tag-badge tag-assets">ASSETS</div>
+    <div class="form-grid">
+      <p class="hint-block">Each status can have its own image. Drop a Discord asset key (e.g. <code>dino_coding_3d</code>) or a direct URL.</p>
+      <div id="assetRows"></div>
+      <div class="form-row">
+        <span class="form-label">STATUS ICON MAPPINGS <span class="hint">small badge corner image</span></span>
+        <div id="iconRows"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="timing" hidden>
+    <div class="tag-badge tag-timing">TIMING</div>
+    <div class="timing">
+      <div class="row" data-key="updateIntervalMs"        data-mul="1000"><span class="label">Updates</span>        <input type="number" min="1" step="1" value="4" /><span class="unit">sec</span></div>
+      <div class="row" data-key="rotationIntervalMs"      data-mul="1000"><span class="label">Rotation</span>       <input type="number" min="5" step="1" value="12" /><span class="unit">sec</span></div>
+      <div class="row" data-key="idleThresholdSec"        data-mul="1"   ><span class="label">Idle after</span>     <input type="number" min="10" step="5" value="60" /><span class="unit">sec</span></div>
+      <div class="row" data-key="staleSessionMin"         data-mul="1"   ><span class="label">Hide after</span>     <input type="number" min="1" step="1" value="5" /><span class="unit">min</span></div>
+      <div class="row" data-key="notificationWindowSec"   data-mul="1"   ><span class="label">Notification hold</span><input type="number" min="2" step="1" value="8" /><span class="unit">sec</span></div>
+      <div class="row" data-key="rescanIntervalSec"       data-mul="1"   ><span class="label">Transcript rescan</span><input type="number" min="60" step="30" value="300" /><span class="unit">sec</span></div>
+      <div class="row" data-key="liveSessionThresholdSec" data-mul="1"   ><span class="label">Live session window</span><input type="number" min="30" step="10" value="" /><span class="unit">sec</span></div>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="daemon" hidden>
+    <div class="tag-badge tag-daemon">DAEMON</div>
+    <div class="daemon-control">
+      <div class="status-card">
+        <span class="big-dot" id="daemonBigDot" style="background:#43b581;"></span>
+        <div>
+          <div class="big-status" id="daemonBigStatus">running (PID 14208)</div>
+          <div class="big-meta" id="daemonBigMeta">IPC Connected · Socket \\.\pipe\discord-ipc-0</div>
+        </div>
+      </div>
+      <div class="daemon-buttons">
+        <button id="daemonStartBtn" class="primary">Start</button>
+        <button id="daemonStopBtn">Stop</button>
+        <button id="daemonRestartBtn">Restart</button>
+        <button id="runSetupBtn" title="Install autostart daemon & sync VS Code extension">Run setup</button>
+      </div>
+      <div id="setupStatus" class="hint" style="display:none"></div>
+      <div class="log-viewer">
+        <div class="log-header">daemon.log <span id="logPath" class="hint">~/.gemini/antigravity/rpc.log</span></div>
+        <pre id="logBody">[2026-10-28 16:21:53] [IPC] Connected to Discord socket \\.\pipe\discord-ipc-0
+[2026-10-28 16:21:53] [RPC] Set activity: "Working in vs code programing" (Edit · extension.js · 2.7B tokens)
+[2026-10-28 16:21:53] [Assets] Large: dino_coding_3d | Small: dino_thinking_3d
+[2026-10-28 16:21:55] [Sync] State healthy. Heartbeat OK.</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="privacy" hidden>
+    <div class="tag-badge tag-privacy">PRIVACY</div>
+    <p class="hint-block">Control what each project shows on your Discord card. <b>Public</b> shows everything · <b>Name-only</b> hides files &amp; tools but keeps the project name · <b>Hidden</b> shows nothing. Changes apply on the daemon's next update — your local stats are never affected.</p>
+    <div class="workspace-list" id="workspaceList">
+      <div class="ws-row" style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#fff; border:2px solid #1a1611; margin-bottom:8px; box-shadow:2px 2px 0 #1a1611;">
+        <span style="font-family:'JetBrains Mono',monospace; font-weight:700;">vs code programing</span>
+        <select style="border:2px solid #1a1611; padding:4px 8px; font-family:'JetBrains Mono',monospace; font-weight:600;">
+          <option selected>Public</option>
+          <option>Name-only</option>
+          <option>Hidden</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" data-panel="stats" hidden>
+    <div class="tag-badge tag-stats">STATS</div>
+    <div class="stats-frame" style="padding:16px; background:#fff; border:2px solid #1a1611; box-shadow:3px 3px 0 #1a1611;">
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:20px;">
+        <div style="border:2px solid #1a1611; padding:12px; background:#f4ede0;">
+          <div style="font-size:12px; font-weight:700; color:#8a7c6d; text-transform:uppercase;">Lifetime Tokens</div>
+          <div style="font-size:24px; font-weight:800; color:#1a1611;">2.7B</div>
+        </div>
+        <div style="border:2px solid #1a1611; padding:12px; background:#f4ede0;">
+          <div style="font-size:12px; font-weight:700; color:#8a7c6d; text-transform:uppercase;">Today's Tokens</div>
+          <div style="font-size:24px; font-weight:800; color:#c2491e;">+1.3B</div>
+        </div>
+        <div style="border:2px solid #1a1611; padding:12px; background:#f4ede0;">
+          <div style="font-size:12px; font-weight:700; color:#8a7c6d; text-transform:uppercase;">Coding Streak</div>
+          <div style="font-size:24px; font-weight:800; color:#4a9462;">1 Day</div>
+        </div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5c5147;">
+        Active Model: <b>Gemini 3.8 Flash</b> · Engine: <b>Antigravity Zero-G</b> · IPC Transport: <b>Named Pipe</b>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span id="saveStatus"></span>
+  <button class="primary" id="saveBtn">Save</button>
+</footer>
+
+<script src="renderer.js" type="module"></script>
+</body>
+</html>

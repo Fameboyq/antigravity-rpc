@@ -6,3 +6,9 @@ Thumbs.db
 
 extracted_claude_gui/
 
+
+desktop-app/dist/
+desktop-app/node_modules/
+desktop-app/src_app/
+*.zip
+
