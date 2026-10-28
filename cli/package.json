@@ -1,0 +1,19 @@
+{
+  "name": "antigravity-rpc",
+  "version": "1.0.0",
+  "description": "Discord Rich Presence for Antigravity & VS Code",
+  "main": "bin/agy-rpc.js",
+  "bin": {
+    "agy-rpc": "./bin/agy-rpc.js",
+    "antigravity-rpc": "./bin/agy-rpc.js"
+  },
+  "keywords": [
+    "antigravity",
+    "discord-rpc",
+    "rich-presence",
+    "vscode"
+  ],
+  "author": "A-Gift-Of-Flame",
+  "license": "MIT"
+}
+

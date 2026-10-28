@@ -1,0 +1,99 @@
+{
+  "name": "antigravity-discord-rpc",
+  "displayName": "Antigravity Discord RPC",
+  "description": "Live Discord Rich Presence for Antigravity & VS Code with token counters, streaks, model info, and active file tracking.",
+  "version": "1.0.0",
+  "publisher": "antigravity",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Themes"
+  ],
+  "keywords": [
+    "antigravity",
+    "discord",
+    "rpc",
+    "rich-presence",
+    "gemini",
+    "deepmind",
+    "coding-agent"
+  ],
+  "icon": "icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "antigravity-rpc.status",
+        "title": "Antigravity RPC: Show Live Stats",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravity-rpc.enable",
+        "title": "Antigravity RPC: Enable & Connect",
+        "category": "Antigravity"
+      },
+      {
+        "command": "antigravity-rpc.disable",
+        "title": "Antigravity RPC: Disable & Disconnect",
+        "category": "Antigravity"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Antigravity Discord RPC",
+      "properties": {
+        "antigravityRpc.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable Discord Rich Presence for Antigravity."
+        },
+        "antigravityRpc.clientId": {
+          "type": "string",
+          "default": "1440730997460172810",
+          "description": "Discord Application Client ID."
+        },
+        "antigravityRpc.animationMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable dynamic cycling through status frames (tokens, active file, reasoning state)."
+        },
+        "antigravityRpc.updateInterval": {
+          "type": "number",
+          "default": 3,
+          "description": "Interval in seconds to update Discord Presence."
+        },
+        "antigravityRpc.button1Label": {
+          "type": "string",
+          "default": "Antigravity AI",
+          "description": "First button label (max 32 characters)."
+        },
+        "antigravityRpc.button1Url": {
+          "type": "string",
+          "default": "https://github.com/google-deepmind",
+          "description": "First button URL."
+        },
+        "antigravityRpc.button2Label": {
+          "type": "string",
+          "default": "Discord RPC",
+          "description": "Second button label (max 32 characters)."
+        },
+        "antigravityRpc.button2Url": {
+          "type": "string",
+          "default": "https://antigravity-rpc.com",
+          "description": "Second button URL."
+        },
+        "antigravityRpc.customFlexTokens": {
+          "type": "string",
+          "default": "",
+          "description": "Custom override string for token flex (leave blank for real SQLite count)."
+        }
+      }
+    }
+  }
+}
+
