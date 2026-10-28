@@ -48,62 +48,46 @@ function buildPresenceActivity(stats, config) {
     const streak = stats.streakDays || 1;
     const todayTokens = stats.todayTokens || '+0';
 
-    // Status image selection
+    // Status image selection (Claude-RPC style clean states)
     let largeImage = ASSET_KEYS.idle;
-    let largeImageText = `💤 Zero-G Dino Resting · ${model}`;
-    let smallImage = 'robot';
-    let smallImageText = `🔥 ${streak}d streak`;
+    let largeImageText = `Zero-G Dino · ${model}`;
+    let smallImage = ASSET_KEYS.thinking;
+    let smallImageText = `${streak}-day streak · ${model}`;
+
+    let details = '';
+    let state = '';
 
     if (stats.isRunning) {
         if (stats.mood === '🧠 Thinking') {
             largeImage = ASSET_KEYS.thinking;
-            largeImageText = `🧠 Dino Reasoning · ${model}`;
+            largeImageText = `Thinking in ${project}`;
+            details = `Thinking in ${project}`;
+            state = `${model} · ${tokenDisplay} tokens`;
         } else {
             largeImage = ASSET_KEYS.working;
-            largeImageText = `💻 Dino Coding · ${project}`;
+            largeImageText = `Working in ${project}`;
+            details = `Working in ${project}`;
+            const filePart = stats.activeFile ? `Edit · ${stats.activeFile}` : 'Coding';
+            state = `${filePart} · ${tokenDisplay} tokens`;
         }
     } else {
-        largeImage = ASSET_KEYS.idle;
-        largeImageText = `💤 Zero-G Dino Sleeping · ${tokenDisplay} tokens`;
+        // Claude-RPC rotating idle states
+        if (currentFrame % 2 === 0) {
+            largeImage = ASSET_KEYS.idle;
+            largeImageText = `${streak}-day streak`;
+            details = `${streak}-day streak`;
+            state = `Day ${streak} · ${tokenDisplay} tokens lifetime`;
+        } else {
+            largeImage = ASSET_KEYS.idle;
+            largeImageText = `Waiting on you · ${project}`;
+            details = `Waiting on you · ${project}`;
+            state = `${model} · ${todayTokens} today`;
+        }
     }
 
     // If configured to use classic rainbow arch
     if (config.get('useClassicLogo', false)) {
         largeImage = ASSET_KEYS.fallback;
-    }
-
-    let details = '';
-    let state = '';
-
-    if (animationMode) {
-        if (!stats.isRunning) {
-            // Idle rotation
-            if (currentFrame % 2 === 0) {
-                details = '💤 Resting / Standing by';
-                state = `📁 ${project} · 🔥 ${streak}d streak`;
-            } else {
-                details = `💎 ${tokenDisplay} tokens (${todayTokens} today)`;
-                state = `⚡ ${model} · Sleeping`;
-            }
-        } else {
-            // Active working rotation
-            if (currentFrame === 0) {
-                details = stats.actionText || '⚡ Pair programming';
-                state = `📁 ${project} · 🔥 ${streak}d streak`;
-            } else if (currentFrame === 1) {
-                details = `🧠 Reasoning · ${model}`;
-                state = `📊 Tokens: ${todayTokens} today · ${tokenDisplay}`;
-            } else if (currentFrame === 2 && stats.activeFile) {
-                details = `📝 ${stats.activeFile} (${stats.activeLang})`;
-                state = `📁 ${project} · Working on code`;
-            } else {
-                details = `⚡ ${model} · High Latency`;
-                state = `🔥 ${streak}d streak · ${todayTokens} today`;
-            }
-        }
-    } else {
-        details = stats.isRunning ? (stats.actionText || `⚡ Working · ${model}`) : '💤 Resting / Standing by';
-        state = `📁 ${project} · ${tokenDisplay} (${todayTokens})`;
     }
 
     const activity = {

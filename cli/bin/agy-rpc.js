@@ -138,18 +138,33 @@ function cmdRun() {
                 largeText = `💤 Zero-G Dino Sleeping · ${stats.lifetimeTokens} tokens`;
             }
 
-            let details = stats.actionText || '⚡ Pair programming';
-            let state = `📁 ${stats.project} · 🔥 ${stats.streakDays}d streak`;
+            let details = '';
+            let state = '';
 
-            if (!stats.isRunning) {
-                details = '💤 Resting / Standing by';
-                state = `📁 ${stats.project} · 💎 ${stats.lifetimeTokens}`;
-            } else if (frame === 1) {
-                details = `🧠 Reasoning · ${stats.model}`;
-                state = `📊 Tokens: ${stats.todayTokens} today · ${stats.lifetimeTokens}`;
-            } else if (frame === 2 && stats.activeFile) {
-                details = `📝 ${stats.activeFile} (${stats.activeLang})`;
-                state = `📁 ${stats.project} · Working on code`;
+            if (stats.isRunning) {
+                if (stats.mood === '🧠 Thinking') {
+                    largeImg = 'dino_thinking';
+                    largeText = `Thinking in ${stats.project}`;
+                    details = `Thinking in ${stats.project}`;
+                    state = `${stats.model} · ${stats.lifetimeTokens} tokens`;
+                } else {
+                    largeImg = 'dino_coding';
+                    largeText = `Working in ${stats.project}`;
+                    details = `Working in ${stats.project}`;
+                    const filePart = stats.activeFile ? `Edit · ${stats.activeFile}` : 'Coding';
+                    state = `${filePart} · ${stats.lifetimeTokens} tokens`;
+                }
+            } else {
+                largeImg = 'dino_sleeping';
+                if (frame % 2 === 0) {
+                    details = `${stats.streakDays}-day streak`;
+                    state = `Day ${stats.streakDays} · ${stats.lifetimeTokens} tokens lifetime`;
+                    largeText = `${stats.streakDays}-day streak`;
+                } else {
+                    details = `Waiting on you · ${stats.project}`;
+                    state = `${stats.model} · ${stats.todayTokens} today`;
+                    largeText = `Waiting on you · ${stats.project}`;
+                }
             }
 
             ipc.setActivity({
@@ -159,7 +174,7 @@ function cmdRun() {
                 assets: {
                     large_image: largeImg,
                     large_text: largeText.slice(0, 128),
-                    small_image: 'robot',
+                    small_image: 'dino_thinking',
                     small_text: `${stats.mood} · 🔥 ${stats.streakDays}d streak`
                 },
                 buttons: [
