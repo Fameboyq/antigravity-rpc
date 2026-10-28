@@ -31,11 +31,10 @@ function getActiveEditorInfo() {
 }
 
 // Discord Art Asset keys (uploaded in Discord Developer Portal -> Art Assets)
-// Fallback to 'antigravity_logo' if custom keys are not yet uploaded
 const ASSET_KEYS = {
-    working: 'dino_coding',
-    thinking: 'dino_thinking',
-    idle: 'dino_sleeping',
+    working: 'dino_coding_3d',
+    thinking: 'dino_thinking_3d',
+    idle: 'dino_sleeping_3d',
     fallback: 'antigravity_logo'
 };
 

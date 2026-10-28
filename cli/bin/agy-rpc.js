@@ -143,19 +143,19 @@ function cmdRun() {
 
             if (stats.isRunning) {
                 if (stats.mood === '🧠 Thinking') {
-                    largeImg = 'dino_thinking';
+                    largeImg = 'dino_thinking_3d';
                     largeText = `Thinking in ${stats.project}`;
                     details = `Thinking in ${stats.project}`;
                     state = `${stats.model} · ${stats.lifetimeTokens} tokens`;
                 } else {
-                    largeImg = 'dino_coding';
+                    largeImg = 'dino_coding_3d';
                     largeText = `Working in ${stats.project}`;
                     details = `Working in ${stats.project}`;
                     const filePart = stats.activeFile ? `Edit · ${stats.activeFile}` : 'Coding';
                     state = `${filePart} · ${stats.lifetimeTokens} tokens`;
                 }
             } else {
-                largeImg = 'dino_sleeping';
+                largeImg = 'dino_sleeping_3d';
                 if (frame % 2 === 0) {
                     details = `${stats.streakDays}-day streak`;
                     state = `Day ${stats.streakDays} · ${stats.lifetimeTokens} tokens lifetime`;
@@ -174,7 +174,7 @@ function cmdRun() {
                 assets: {
                     large_image: largeImg,
                     large_text: largeText.slice(0, 128),
-                    small_image: 'dino_thinking',
+                    small_image: 'dino_thinking_3d',
                     small_text: `${stats.mood} · 🔥 ${stats.streakDays}d streak`
                 },
                 buttons: [
