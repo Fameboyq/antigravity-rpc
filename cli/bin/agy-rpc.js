@@ -93,12 +93,9 @@ function cmdStatus() {
 }
 
 const STATUS_IMAGES = {
-    dino_working: 'https://raw.githubusercontent.com/A-Gift-Of-Flame/antigravity-rpc/main/website/assets/dino/dino-coding.gif',
-    dino_thinking: 'https://raw.githubusercontent.com/A-Gift-Of-Flame/antigravity-rpc/main/website/assets/dino/dino-thinking.gif',
-    dino_sleeping: 'https://raw.githubusercontent.com/A-Gift-Of-Flame/antigravity-rpc/main/website/assets/dino/dino-sleeping.gif',
-    clawd_working: 'https://cdn.qualit.ly/clawd-working-building.gif',
-    clawd_thinking: 'https://cdn.qualit.ly/clawd-working-typing.gif',
-    clawd_sleeping: 'https://cdn.qualit.ly/clawd-sleeping.gif'
+    dino_working: 'https://files.catbox.moe/tsnjqi.gif',
+    dino_thinking: 'https://files.catbox.moe/untr5e.gif',
+    dino_sleeping: 'https://files.catbox.moe/fnsajr.gif'
 };
 
 function cmdRun() {
