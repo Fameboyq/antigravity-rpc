@@ -92,10 +92,11 @@ function cmdStatus() {
     console.log();
 }
 
-const STATUS_IMAGES = {
-    dino_working: 'https://files.catbox.moe/tsnjqi.gif',
-    dino_thinking: 'https://files.catbox.moe/untr5e.gif',
-    dino_sleeping: 'https://files.catbox.moe/fnsajr.gif'
+const ASSET_KEYS = {
+    working: 'dino_coding',
+    thinking: 'dino_thinking',
+    idle: 'dino_sleeping',
+    fallback: 'antigravity_logo'
 };
 
 function cmdRun() {
@@ -121,19 +122,19 @@ function cmdRun() {
             const stats = reader.readStats();
             frame = (frame + 1) % 4;
 
-            let largeImg = STATUS_IMAGES.dino_sleeping;
+            let largeImg = ASSET_KEYS.idle;
             let largeText = `💤 Dino Resting · ${stats.model}`;
 
             if (stats.isRunning) {
                 if (stats.mood === '🧠 Thinking') {
-                    largeImg = STATUS_IMAGES.dino_thinking;
+                    largeImg = ASSET_KEYS.thinking;
                     largeText = `🧠 Dino Reasoning · ${stats.model}`;
                 } else {
-                    largeImg = STATUS_IMAGES.dino_working;
+                    largeImg = ASSET_KEYS.working;
                     largeText = `💻 Dino Coding · ${stats.project}`;
                 }
             } else {
-                largeImg = STATUS_IMAGES.dino_sleeping;
+                largeImg = ASSET_KEYS.idle;
                 largeText = `💤 Zero-G Dino Sleeping · ${stats.lifetimeTokens} tokens`;
             }
 

@@ -30,11 +30,13 @@ function getActiveEditorInfo() {
     return { filename, projectName };
 }
 
-const STATUS_IMAGES = {
-    // Zero-G Chrome Dino CDN assets
-    dino_working: 'https://files.catbox.moe/tsnjqi.gif',
-    dino_thinking: 'https://files.catbox.moe/untr5e.gif',
-    dino_sleeping: 'https://files.catbox.moe/fnsajr.gif'
+// Discord Art Asset keys (uploaded in Discord Developer Portal -> Art Assets)
+// Fallback to 'antigravity_logo' if custom keys are not yet uploaded
+const ASSET_KEYS = {
+    working: 'dino_coding',
+    thinking: 'dino_thinking',
+    idle: 'dino_sleeping',
+    fallback: 'antigravity_logo'
 };
 
 function buildPresenceActivity(stats, config) {
@@ -46,23 +48,28 @@ function buildPresenceActivity(stats, config) {
     const streak = stats.streakDays || 1;
     const todayTokens = stats.todayTokens || '+0';
 
-    // Status image selection (Zero-G Dino)
-    let largeImage = STATUS_IMAGES.dino_sleeping;
-    let largeImageText = `💤 Dino Resting · ${model}`;
+    // Status image selection
+    let largeImage = ASSET_KEYS.idle;
+    let largeImageText = `💤 Zero-G Dino Resting · ${model}`;
     let smallImage = 'robot';
     let smallImageText = `🔥 ${streak}d streak`;
 
     if (stats.isRunning) {
         if (stats.mood === '🧠 Thinking') {
-            largeImage = STATUS_IMAGES.dino_thinking;
+            largeImage = ASSET_KEYS.thinking;
             largeImageText = `🧠 Dino Reasoning · ${model}`;
         } else {
-            largeImage = STATUS_IMAGES.dino_working;
+            largeImage = ASSET_KEYS.working;
             largeImageText = `💻 Dino Coding · ${project}`;
         }
     } else {
-        largeImage = STATUS_IMAGES.dino_sleeping;
+        largeImage = ASSET_KEYS.idle;
         largeImageText = `💤 Zero-G Dino Sleeping · ${tokenDisplay} tokens`;
+    }
+
+    // If configured to use classic rainbow arch
+    if (config.get('useClassicLogo', false)) {
+        largeImage = ASSET_KEYS.fallback;
     }
 
     let details = '';
