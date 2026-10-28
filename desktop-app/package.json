@@ -21,11 +21,14 @@
     "electronVersion": "24.8.8",
     "appId": "com.antigravity.rpc",
     "productName": "Antigravity RPC",
+    "icon": "icon.ico",
     "win": {
-      "target": [
-        "portable",
-        "nsis"
-      ]
+      "target": "portable",
+      "icon": "icon.ico",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "Antigravity-RPC-Portable.exe"
     },
     "directories": {
       "output": "dist"
