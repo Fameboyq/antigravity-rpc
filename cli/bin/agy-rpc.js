@@ -179,7 +179,7 @@ function cmdRun() {
                 },
                 buttons: [
                     { label: 'Antigravity RPC', url: 'https://antigravity-rpc.com' },
-                    { label: 'GitHub', url: 'https://github.com/A-Gift-Of-Flame' }
+                    { label: 'GitHub', url: 'https://github.com/Fameboyq' }
                 ],
                 instance: false
             });

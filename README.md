@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/A-Gift-Of-Flame/antigravity-rpc/releases"><img src="https://img.shields.io/badge/version-1.0.0-8b5cf6.svg" alt="Version"></a>
+  <a href="https://github.com/Fameboyq/antigravity-rpc/releases"><img src="https://img.shields.io/badge/version-1.0.0-8b5cf6.svg" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
   <a href="https://antigravity-rpc.com"><img src="https://img.shields.io/badge/website-antigravity--rpc.com-06b6d4.svg" alt="Website"></a>
 </p>
@@ -97,5 +97,5 @@ Open `website/index.html` in any browser to test the interactive Discord profile
 
 ## 📄 License
 
-MIT © [A-Gift-Of-Flame](https://github.com/A-Gift-Of-Flame)
+MIT © [Fameboyq](https://github.com/Fameboyq)
 
