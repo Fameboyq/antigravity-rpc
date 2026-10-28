@@ -54,7 +54,7 @@
         },
         "antigravityRpc.clientId": {
           "type": "string",
-          "default": "1440730997460172810",
+          "default": "1564990931835297822",
           "description": "Discord Application Client ID."
         },
         "antigravityRpc.animationMode": {

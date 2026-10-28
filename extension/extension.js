@@ -182,7 +182,7 @@ function updateStatusBar(connected, stats = null) {
 
 function startRPC() {
     const config = getConfig();
-    const clientId = config.get('clientId', '1440730997460172810').trim() || '1440730997460172810';
+    const clientId = config.get('clientId', '1564990931835297822').trim() || '1564990931835297822';
 
     if (ipcClient) {
         ipcClient.disconnect();

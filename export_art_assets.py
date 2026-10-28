@@ -23,3 +23,4 @@ for name, path in src_files.items():
         im_512 = im_frame.resize((512, 512), Image.NEAREST)
         im_512.save(os.path.join(out_dir, f'{name}.png'))
         print(f'Exported {name}.png and {name}.gif (512x512)')
+

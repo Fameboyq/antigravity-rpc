@@ -103,7 +103,7 @@ function cmdRun() {
     banner();
     console.log(`${colors.dim}Connecting to local Discord client...${colors.reset}`);
 
-    const clientId = '1440730997460172810';
+    const clientId = '1564990931835297822';
     const reader = new StatsReader();
     const ipc = new DiscordIPC(clientId);
 
